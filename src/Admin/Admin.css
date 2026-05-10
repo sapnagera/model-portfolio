@@ -1,0 +1,263 @@
+.admin-login {
+  min-height: 100vh;
+  background: #f5f5f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.admin-login__card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 18px;
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+.admin-login__card h1 {
+  color: #1d1d1f;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+.admin-login__card p {
+  color: #6e6e73;
+  font-size: 14px;
+  margin-bottom: 32px;
+}
+
+.admin-login__card input {
+  width: 100%;
+  padding: 12px 16px;
+  background: #f5f5f7;
+  border: 1px solid #d2d2d7;
+  border-radius: 10px;
+  color: #1d1d1f;
+  font-size: 15px;
+  outline: none;
+  margin-bottom: 12px;
+  transition: border-color 0.2s;
+}
+
+.admin-login__card input:focus {
+  border-color: #0071e3;
+}
+
+.admin-login__card button {
+  width: 100%;
+  padding: 13px;
+  background: #0071e3;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.admin-login__card button:hover {
+  background: #0077ed;
+}
+
+.admin-login__error {
+  color: #ff3b30;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.admin {
+  min-height: 100vh;
+  background: #f5f5f7;
+  color: #1d1d1f;
+}
+
+.admin__header {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0 32px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+}
+
+.admin__header h1 {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  color: #1d1d1f;
+}
+
+.admin__logout {
+  background: none;
+  border: 1px solid #d2d2d7;
+  border-radius: 8px;
+  color: #6e6e73;
+  font-size: 13px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.admin__logout:hover {
+  border-color: #1d1d1f;
+  color: #1d1d1f;
+}
+
+.admin__main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admin__card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.admin__card h2 {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #6e6e73;
+  margin-bottom: 16px;
+}
+
+.admin__card textarea {
+  width: 100%;
+  background: #f5f5f7;
+  border: 1px solid #d2d2d7;
+  border-radius: 10px;
+  color: #1d1d1f;
+  font-size: 15px;
+  line-height: 1.6;
+  padding: 14px;
+  resize: vertical;
+  outline: none;
+  font-family: inherit;
+  margin-bottom: 14px;
+  transition: border-color 0.2s;
+}
+
+.admin__card textarea:focus {
+  border-color: #0071e3;
+}
+
+.admin__row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.admin__card button {
+  padding: 10px 24px;
+  background: #0071e3;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.admin__card button:hover {
+  background: #0077ed;
+}
+
+.admin__success {
+  color: #34c759;
+  font-size: 13px;
+}
+
+.admin__upload {
+  display: block;
+  border: 2px dashed #d2d2d7;
+  border-radius: 12px;
+  padding: 28px;
+  text-align: center;
+  color: #6e6e73;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.2s;
+}
+
+.admin__upload:hover {
+  border-color: #0071e3;
+  color: #0071e3;
+}
+
+.admin__upload input {
+  display: none;
+}
+
+.admin__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+.admin__photo {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f5f5f7;
+  border: 1px solid #e0e0e0;
+}
+
+.admin__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.admin__delete {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+  background: rgba(0,0,0,0.5) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 50% !important;
+  font-size: 12px !important;
+  padding: 0 !important;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin__photo:hover .admin__delete {
+  opacity: 1;
+}
+
+.admin__empty {
+  color: #6e6e73;
+  font-size: 14px;
+  grid-column: 1 / -1;
+  padding: 20px 0;
+}
