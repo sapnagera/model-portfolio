@@ -34,4 +34,4 @@ npm install
 npm run dev
 
 ## 👩‍💻 Developer
-Built by Sapna Gera — Frontend Developer based in Helsinki, Finland.
+Sapna Gera Full-Stack Cloud Developer | React · TypeScript · Python | Azure · AWS | CI/CD · GitHub Actions | Helsinki
