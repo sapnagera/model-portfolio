@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Admin.css";
 
 export default function Admin() {
-  const [password, setPassword] = useState("");
+  const API = "http://angelina-portfolio-api-a2exb5g4adauchds.centralus-01.azurewebsites.net";const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [bio, setBio] = useState("");
