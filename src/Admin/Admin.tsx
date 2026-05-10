@@ -2,13 +2,11 @@ import { useState } from "react";
 import "./Admin.css";
 
 export default function Admin() {
-  const API = "http://angelina-portfolio-api-a2exb5g4adauchds.centralus-01.azurewebsites.net";const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [bio, setBio] = useState("");
   const [bioSaved, setBioSaved] = useState(false);
-  const [photos, setPhotos] = useState<string[]>([]);
-  const [uploading, setUploading] = useState(false);
 
   function handleLogout() {
     setIsLoggedIn(false);
@@ -18,10 +16,6 @@ export default function Admin() {
   function handleSaveBio() {
     setBioSaved(true);
     setTimeout(() => setBioSaved(false), 2500);
-  }
-
-  function handleUpload() {
-    // will connect to backend later
   }
 
   function handleLogin() {
@@ -77,13 +71,11 @@ export default function Admin() {
         <section className="admin__card">
           <h2>Photos</h2>
           <label className="admin__upload">
-            <input type="file" accept="image/*" multiple onChange={handleUpload} />
-            {uploading ? "Uploading..." : "Click to upload photos"}
+            <input type="file" accept="image/*" multiple />
+            Click to upload photos
           </label>
           <div className="admin__grid">
-            {photos.length === 0 && (
-              <p className="admin__empty">No photos yet. Upload some above!</p>
-            )}
+            <p className="admin__empty">No photos yet. Upload some above!</p>
           </div>
         </section>
       </main>
