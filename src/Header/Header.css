@@ -1,0 +1,42 @@
+.header {
+  position: fixed;
+  top: 20px;
+  left: 40px;
+  right: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 48px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  border-radius: 50px;
+}
+
+.logo h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 300;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+}
+
+.nav-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+.nav-links a:hover {
+  color: #aaaaaa;
+}

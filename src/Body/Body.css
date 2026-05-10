@@ -1,0 +1,41 @@
+.body {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.body-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.body-content {
+  position: absolute;
+  bottom: 80px;
+  left: 48px;
+  z-index: 2;
+}
+
+.body-content h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 80px;
+  font-weight: 300;
+  font-style: italic;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.body-content p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-top: 16px;
+  font-weight: 300;
+}
