@@ -16,7 +16,10 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=[
+        "http://localhost:5173",
+        "https://mango-ocean-008a76410.7.azurestaticapps.net"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

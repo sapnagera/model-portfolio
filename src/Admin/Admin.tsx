@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Admin.css";
 
-const API = "https://angelina-portfolio-api-a2exb5g4adauchds.centralus-01.azurewebsites.net";
+const API = "https://angelina-portfolio-api.onrender.com";
 
 export default function Admin() {
   const [password, setPassword] = useState("");
