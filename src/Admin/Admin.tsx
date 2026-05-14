@@ -13,6 +13,16 @@ export default function Admin() {
   const [activeSection, setActiveSection] = useState<Section>("bio");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  // Video
+  const [videoUrl, setVideoUrl] = useState("");
+  const [uploadingVideo, setUploadingVideo] = useState(false);
+  const [videoSaved, setVideoSaved] = useState(false);
+
+  // About Photo
+  const [aboutPhotoUrl, setAboutPhotoUrl] = useState("");
+  const [uploadingAboutPhoto, setUploadingAboutPhoto] = useState(false);
+  const [aboutPhotoSaved, setAboutPhotoSaved] = useState(false);
+
   // Bio
   const [bio, setBio] = useState("");
   const [bioSaved, setBioSaved] = useState(false);
@@ -70,19 +80,23 @@ export default function Admin() {
       setLoginError("Cannot connect to server.");
     }
   }
-useEffect(() => {
-  if (isLoggedIn) {
-    loadContent();
-  }
-}, [isLoggedIn]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      loadContent();
+    }
+  }, [isLoggedIn]);
+
   async function loadContent() {
     try {
-      const [bioRes, statsRes, socialRes, contactRes, photosRes] = await Promise.all([
+      const [bioRes, statsRes, socialRes, contactRes, photosRes, videoRes, aboutPhotoRes] = await Promise.all([
         fetch(`${API}/bio`),
         fetch(`${API}/stats`),
         fetch(`${API}/social`),
         fetch(`${API}/contact`),
-        fetch(`${API}/photos`)
+        fetch(`${API}/photos`),
+        fetch(`${API}/video`),
+        fetch(`${API}/about-photo`)
       ]);
 
       const bioData = await bioRes.json();
@@ -90,12 +104,16 @@ useEffect(() => {
       const socialData = await socialRes.json();
       const contactData = await contactRes.json();
       const photosData = await photosRes.json();
+      const videoData = await videoRes.json();
+      const aboutPhotoData = await aboutPhotoRes.json();
 
       setBio(bioData.bio || "");
       setStats(statsData.stats || stats);
       setSocial(socialData.social || social);
       setContact(contactData.contact || contact);
       setPhotos(photosData.photos || []);
+      setVideoUrl(videoData.video || "");
+      setAboutPhotoUrl(aboutPhotoData.about_photo || "");
     } catch (err) {
       console.error("Failed to load content:", err);
     }
@@ -167,6 +185,58 @@ useEffect(() => {
     } catch (err) {
       console.error("Failed to save contact:", err);
     }
+  }
+
+  async function handleVideoUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    setUploadingVideo(true);
+    const form = new FormData();
+    form.append("file", file);
+    
+    try {
+      const res = await fetch(`${API}/admin/upload-video`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+        body: form,
+      });
+      const data = await res.json();
+      setVideoUrl(data.url);
+      setVideoSaved(true);
+      setTimeout(() => setVideoSaved(false), 2500);
+    } catch (err) {
+      console.error("Failed to upload video:", err);
+    }
+    
+    setUploadingVideo(false);
+    e.target.value = "";
+  }
+
+  async function handleAboutPhotoUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    setUploadingAboutPhoto(true);
+    const form = new FormData();
+    form.append("file", file);
+    
+    try {
+      const res = await fetch(`${API}/admin/upload-about-photo`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+        body: form,
+      });
+      const data = await res.json();
+      setAboutPhotoUrl(data.url);
+      setAboutPhotoSaved(true);
+      setTimeout(() => setAboutPhotoSaved(false), 2500);
+    } catch (err) {
+      console.error("Failed to upload about photo:", err);
+    }
+    
+    setUploadingAboutPhoto(false);
+    e.target.value = "";
   }
 
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
@@ -464,16 +534,54 @@ useEffect(() => {
           {activeSection === "video" && (
             <div className="admin__section">
               <h2>Home Video</h2>
-              <p className="admin__description">Upload a new hero video for the homepage (coming soon)</p>
-              <p className="admin__placeholder">Video upload feature will be added soon</p>
+              <p className="admin__description">Upload a new hero video for the homepage</p>
+              {videoUrl && (
+                <div style={{ marginBottom: '20px' }}>
+                  <p style={{ fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Current video:</p>
+                  <video 
+                    src={videoUrl} 
+                    style={{ width: '100%', maxWidth: '400px', borderRadius: '10px' }}
+                    controls
+                  />
+                </div>
+              )}
+              <label className="admin__upload">
+                <input 
+                  type="file" 
+                  accept="video/*" 
+                  onChange={handleVideoUpload}
+                  disabled={uploadingVideo}
+                />
+                {uploadingVideo ? "Uploading..." : "Click to upload video"}
+              </label>
+              {videoSaved && <span className="admin__success">✓ Video uploaded!</span>}
             </div>
           )}
 
           {activeSection === "about-photo" && (
             <div className="admin__section">
               <h2>About Photo</h2>
-              <p className="admin__description">Upload a new profile photo for the About page (coming soon)</p>
-              <p className="admin__placeholder">Photo upload feature will be added soon</p>
+              <p className="admin__description">Upload a new profile photo for the About page</p>
+              {aboutPhotoUrl && (
+                <div style={{ marginBottom: '20px' }}>
+                  <p style={{ fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Current photo:</p>
+                  <img 
+                    src={aboutPhotoUrl} 
+                    alt="About" 
+                    style={{ width: '100%', maxWidth: '300px', borderRadius: '10px' }}
+                  />
+                </div>
+              )}
+              <label className="admin__upload">
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  onChange={handleAboutPhotoUpload}
+                  disabled={uploadingAboutPhoto}
+                />
+                {uploadingAboutPhoto ? "Uploading..." : "Click to upload photo"}
+              </label>
+              {aboutPhotoSaved && <span className="admin__success">✓ Photo uploaded!</span>}
             </div>
           )}
 

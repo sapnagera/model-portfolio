@@ -5,6 +5,7 @@ const API = "https://angelina-portfolio-api.onrender.com";
 
 const About = () => {
   const [bio, setBio] = useState("Loading...");
+  const [photoUrl, setPhotoUrl] = useState("/assets/About/profile.jpg");
   const [stats, setStats] = useState({
     age: "24",
     height: "175 cm / 5'9\"",
@@ -19,16 +20,21 @@ const About = () => {
   useEffect(() => {
     async function loadContent() {
       try {
-        const [bioRes, statsRes] = await Promise.all([
+        const [bioRes, statsRes, photoRes] = await Promise.all([
           fetch(`${API}/bio`),
-          fetch(`${API}/stats`)
+          fetch(`${API}/stats`),
+          fetch(`${API}/about-photo`)
         ]);
 
         const bioData = await bioRes.json();
         const statsData = await statsRes.json();
+        const photoData = await photoRes.json();
 
         setBio(bioData.bio || "Hi, I'm Angelina! 🖤\n\nI'm a beauty and glamour model based in Helsinki, Finland...");
         setStats(statsData.stats || stats);
+        if (photoData.about_photo) {
+          setPhotoUrl(photoData.about_photo);
+        }
       } catch (err) {
         console.error("Failed to load content:", err);
         setBio("Hi, I'm Angelina! 🖤\n\nI'm a beauty and glamour model based in Helsinki, Finland...");
@@ -40,7 +46,7 @@ const About = () => {
   return (
     <section className="about">
       <div className="about-image">
-        <img src="/assets/About/profile.jpg" alt="Angelina Love" />
+        <img src={photoUrl} alt="Angelina Love" />
       </div>
       <div className="about-details">
         <h1>Angelina Love</h1>
