@@ -5,18 +5,36 @@ const API = "https://angelina-portfolio-api.onrender.com";
 
 const About = () => {
   const [bio, setBio] = useState("Loading...");
+  const [stats, setStats] = useState({
+    age: "24",
+    height: "175 cm / 5'9\"",
+    bust: "86 cm",
+    waist: "61 cm",
+    hips: "89 cm",
+    shoe: "EU 39",
+    eyes: "Brown",
+    hair: "Dark Brown"
+  });
 
   useEffect(() => {
-    async function loadBio() {
+    async function loadContent() {
       try {
-        const res = await fetch(`${API}/bio`);
-        const data = await res.json();
-        setBio(data.bio || "Hi, I'm Angelina! 🖤\n\nI'm a beauty and glamour model based in Helsinki, Finland...");
-      } catch {
+        const [bioRes, statsRes] = await Promise.all([
+          fetch(`${API}/bio`),
+          fetch(`${API}/stats`)
+        ]);
+
+        const bioData = await bioRes.json();
+        const statsData = await statsRes.json();
+
+        setBio(bioData.bio || "Hi, I'm Angelina! 🖤\n\nI'm a beauty and glamour model based in Helsinki, Finland...");
+        setStats(statsData.stats || stats);
+      } catch (err) {
+        console.error("Failed to load content:", err);
         setBio("Hi, I'm Angelina! 🖤\n\nI'm a beauty and glamour model based in Helsinki, Finland...");
       }
     }
-    loadBio();
+    loadContent();
   }, []);
 
   return (
@@ -32,39 +50,40 @@ const About = () => {
         <div className="about-stats">
           <div className="stat">
             <span className="stat-label">Age</span>
-            <span className="stat-value">24</span>
+            <span className="stat-value">{stats.age}</span>
           </div>
           <div className="stat">
             <span className="stat-label">Height</span>
-            <span className="stat-value">175 cm / 5'9"</span>
+            <span className="stat-value">{stats.height}</span>
           </div>
           <div className="stat">
             <span className="stat-label">Bust</span>
-            <span className="stat-value">86 cm</span>
+            <span className="stat-value">{stats.bust}</span>
           </div>
           <div className="stat">
             <span className="stat-label">Waist</span>
-            <span className="stat-value">61 cm</span>
+            <span className="stat-value">{stats.waist}</span>
           </div>
           <div className="stat">
             <span className="stat-label">Hips</span>
-            <span className="stat-value">89 cm</span>
+            <span className="stat-value">{stats.hips}</span>
           </div>
           <div className="stat">
             <span className="stat-label">Shoe</span>
-            <span className="stat-value">EU 39</span>
+            <span className="stat-value">{stats.shoe}</span>
           </div>
           <div className="stat">
             <span className="stat-label">Eyes</span>
-            <span className="stat-value">Brown</span>
+            <span className="stat-value">{stats.eyes}</span>
           </div>
           <div className="stat">
             <span className="stat-label">Hair</span>
-            <span className="stat-value">Dark Brown</span>
+            <span className="stat-value">{stats.hair}</span>
           </div>
         </div>
       </div>
     </section>
   )
 }
+
 export default About
