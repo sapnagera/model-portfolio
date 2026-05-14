@@ -34,7 +34,7 @@ const Body = () => {
         <source src={videoUrl} type="video/mp4" />
       </video>
       <div className="body-content">
-        <h1>Angelina Love</h1>
+        <h1>Angelina Akok</h1>
         <p>Beauty & Glamour Model</p>
       </div>
     </section>

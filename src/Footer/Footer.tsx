@@ -41,7 +41,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-logo">
-          <h2>Angelina Love</h2>
+          <h2>Angelina Akok</h2>
           <p>Beauty & Glamour Model</p>
         </div>
         <div className="footer-contact">
@@ -74,7 +74,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>© 2024 Angelina Love. All rights reserved.</p>
+        <p>© 2026 Angelina Akok. All rights reserved.</p>
       </div>
     </footer>
   )

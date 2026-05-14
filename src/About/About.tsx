@@ -46,10 +46,10 @@ const About = () => {
   return (
     <section className="about">
       <div className="about-image">
-        <img src={photoUrl} alt="Angelina Love" />
+        <img src={photoUrl} alt="Angelina Akok" />
       </div>
       <div className="about-details">
-        <h1>Angelina Love</h1>
+        <h1>Angelina Akok</h1>
         <p className="about-bio" style={{ whiteSpace: 'pre-wrap' }}>
           {bio}
         </p>
