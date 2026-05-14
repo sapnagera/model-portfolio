@@ -42,7 +42,32 @@ def load_content():
         data = blob.download_blob().readall()
         return json.loads(data)
     except:
-        return {"bio": "", "photos": [], "about_photo": "", "video": ""}
+        return {
+            "bio": "",
+            "photos": [],
+            "about_photo": "",
+            "video": "",
+            "stats": {
+                "age": "24",
+                "height": "175 cm / 5'9\"",
+                "bust": "86 cm",
+                "waist": "61 cm",
+                "hips": "89 cm",
+                "shoe": "EU 39",
+                "eyes": "Brown",
+                "hair": "Dark Brown"
+            },
+            "social": {
+                "instagram": "",
+                "facebook": "",
+                "twitter": ""
+            },
+            "contact": {
+                "email": "",
+                "phone": "",
+                "location": "Helsinki, Finland"
+            }
+        }
 
 def save_content(content):
     blob = get_container().get_blob_client("content.json")
@@ -56,6 +81,29 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
 
 class LoginRequest(BaseModel):
     password: str
+
+class BioUpdate(BaseModel):
+    bio: str
+
+class StatsUpdate(BaseModel):
+    age: str
+    height: str
+    bust: str
+    waist: str
+    hips: str
+    shoe: str
+    eyes: str
+    hair: str
+
+class SocialUpdate(BaseModel):
+    instagram: str
+    facebook: str
+    twitter: str
+
+class ContactUpdate(BaseModel):
+    email: str
+    phone: str
+    location: str
 
 @app.post("/admin/login")
 def login(body: LoginRequest):
@@ -84,8 +132,17 @@ def get_about_photo():
 def get_video():
     return {"video": load_content().get("video", "")}
 
-class BioUpdate(BaseModel):
-    bio: str
+@app.get("/stats")
+def get_stats():
+    return {"stats": load_content().get("stats", {})}
+
+@app.get("/social")
+def get_social():
+    return {"social": load_content().get("social", {})}
+
+@app.get("/contact")
+def get_contact():
+    return {"contact": load_content().get("contact", {})}
 
 @app.put("/admin/bio", dependencies=[Depends(verify_token)])
 def update_bio(body: BioUpdate):
@@ -93,6 +150,27 @@ def update_bio(body: BioUpdate):
     content["bio"] = body.bio
     save_content(content)
     return {"message": "Bio updated"}
+
+@app.put("/admin/stats", dependencies=[Depends(verify_token)])
+def update_stats(body: StatsUpdate):
+    content = load_content()
+    content["stats"] = body.dict()
+    save_content(content)
+    return {"message": "Stats updated"}
+
+@app.put("/admin/social", dependencies=[Depends(verify_token)])
+def update_social(body: SocialUpdate):
+    content = load_content()
+    content["social"] = body.dict()
+    save_content(content)
+    return {"message": "Social links updated"}
+
+@app.put("/admin/contact", dependencies=[Depends(verify_token)])
+def update_contact(body: ContactUpdate):
+    content = load_content()
+    content["contact"] = body.dict()
+    save_content(content)
+    return {"message": "Contact updated"}
 
 @app.post("/admin/upload-photo", dependencies=[Depends(verify_token)])
 async def upload_photo(file: UploadFile = File(...)):
