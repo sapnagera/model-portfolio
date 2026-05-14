@@ -39,3 +39,39 @@
   margin-top: 16px;
   font-weight: 300;
 }
+
+/* Tablet */
+@media (max-width: 768px) {
+  .body-content {
+    bottom: 60px;
+    left: 32px;
+  }
+
+  .body-content h1 {
+    font-size: 56px;
+  }
+
+  .body-content p {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .body-content {
+    bottom: 120px;
+    left: 24px;
+    right: 24px;
+  }
+
+  .body-content h1 {
+    font-size: 40px;
+  }
+
+  .body-content p {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    margin-top: 12px;
+  }
+}
